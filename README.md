@@ -8,3 +8,7 @@ Files that can be uploaded to the [Pleco app](https://www.pleco.com/) to make fl
 
 ## 01_metro_stations
 Analysis of the frequency of characters in train station names
+
+## Spreadsheets
+1. [Song lyrics](https://docs.google.com/spreadsheets/d/1gAy3Oo53x1CVEFCLPrcnqL-NocqcWwcAqBj7PwSkQq0): translations of lyrics for some popular songs
+2. [Modal particles](https://docs.google.com/spreadsheets/d/1UNGn-9ebiJQnE_3RJoEG3hLnH_-M08_VzbnNwzAseCg): descriptions of many modal particles, characters used in written communication to adjust the tone of messages
