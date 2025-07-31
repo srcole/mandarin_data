@@ -9,6 +9,7 @@ Currently, I find it most useful to maintain Google spreadsheets because they ar
 4. [English names](https://docs.google.com/spreadsheets/d/1UNGn-9ebiJQnE_3RJoEG3hLnH_-M08_VzbnNwzAseCg/edit?gid=164755911#gid=164755911): Phonetic translations of most common English names
 5. [cities](https://docs.google.com/spreadsheets/d/1UNGn-9ebiJQnE_3RJoEG3hLnH_-M08_VzbnNwzAseCg/edit?gid=392880831#gid=392880831): biggest cities in the world
 6. [countries](https://docs.google.com/spreadsheets/d/1UNGn-9ebiJQnE_3RJoEG3hLnH_-M08_VzbnNwzAseCg/edit?gid=870473198#gid=870473198): almost all countries
+7. [license plates](https://docs.google.com/spreadsheets/d/1UNGn-9ebiJQnE_3RJoEG3hLnH_-M08_VzbnNwzAseCg/edit?gid=2062759630#gid=2062759630): lookup the first character of a license plate to determine its region
 
 ## flashcards
 Files that can be uploaded to the [Pleco app](https://www.pleco.com/) to make flashcards for studying. I made these by translating English words into Simplified characters (and pinyin) and aggregating them into a Google Sheet, which can be exported into a `.tsv` and easily uploaded to Pleco. See UI screenshot for upload settings.
