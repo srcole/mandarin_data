@@ -11,4 +11,5 @@ Analysis of the frequency of characters in train station names
 
 ## Spreadsheets
 1. [Song lyrics](https://docs.google.com/spreadsheets/d/1gAy3Oo53x1CVEFCLPrcnqL-NocqcWwcAqBj7PwSkQq0): translations of lyrics for some popular songs
-2. [Modal particles](https://docs.google.com/spreadsheets/d/1UNGn-9ebiJQnE_3RJoEG3hLnH_-M08_VzbnNwzAseCg): descriptions of many modal particles, characters used in written communication to adjust the tone of messages
+2. [Modal particles](https://docs.google.com/spreadsheets/d/1UNGn-9ebiJQnE_3RJoEG3hLnH_-M08_VzbnNwzAseCg/edit?gid=184858178#gid=184858178): descriptions of many modal particles, characters used in written communication to adjust the tone of messages
+3. [Metro stations - top characters](https://docs.google.com/spreadsheets/d/1UNGn-9ebiJQnE_3RJoEG3hLnH_-M08_VzbnNwzAseCg/edit?gid=972030455#gid=972030455): Most common characters appearing in metro station names. Also see [ths sheet of most common pairs](https://docs.google.com/spreadsheets/d/1UNGn-9ebiJQnE_3RJoEG3hLnH_-M08_VzbnNwzAseCg/edit?gid=687489175#gid=687489175)
