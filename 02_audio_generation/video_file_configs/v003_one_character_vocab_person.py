@@ -1,10 +1,10 @@
 from PIL import ImageFont
+from constants import WORD_TYPES, PHRASE_TYPES, SENT_TYPES, PROPER_NOUN_TYPES, IDIOM_TYPES, ALL_TYPES
 
 # Basic video info
-making_video = True
-video_number = '2'
-subtitle_1 = {'chinese': '词汇细分', 'pinyin': 'Cíhuì xìfēn', 'english': 'Vocabulary breakdown'}
-subtitle_2 = {'chinese': '动物', 'pinyin': 'Dòngwù', 'english': 'Animals'}
+video_number = '3'
+subtitle_1 = {'chinese': '一个字，多个单词', 'pinyin': 'Yīgè zì, duō gè dāncí', 'english': 'One character, many words'}
+subtitle_2 = {'chinese': '人', 'pinyin': 'rén', 'english': 'Person'}
 
 # Video configs
 hanzi_font_path = '/System/Library/Fonts/STHeiti Medium.ttc'
@@ -69,11 +69,10 @@ nonvocab_slides = {
 # audio
 dict_recordings = [
     {
-    'recording_id': '013', 'filename_suffix': '_animal_yt',
-    'category_type': 'animal',
-    'min_combo_quality': 3,
-    'min_priority': 1, 'max_priority': 4,
-    'min_known_english_prompt': 1, 'max_known_english_prompt': 5,
+    'recording_id': '016', 'filename_suffix': '_one_character_vocab_person',
     'min_adu': 3, 'min_per': 3,
+    'contains_character': '人',
+    'types_allowed': WORD_TYPES + PROPER_NOUN_TYPES,
+    'exclude_words': ['维吾尔族人', '很仔细的人', '好心人', '看个人', '恐高的人', '圣诞老人', '传统的人', '幽默的人']
     },
 ]

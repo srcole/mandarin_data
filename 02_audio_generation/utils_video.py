@@ -113,13 +113,13 @@ def add_text_and_save_clip(text_settings, img, draw, clips, rrow, bg_size, max_l
     return img, draw, clips
 
 
-def create_full_video_file(clips_all, rrow):
-    video_file_name = f"audio_files/products/videos/{rrow['recording_name']}_video.mp4"
+def create_full_video_file(clips_all, rrow, nonvocab_audio_path):
+    video_file_name = f"{nonvocab_audio_path}{rrow['recording_name']}/video.mp4"
     if os.path.exists(video_file_name):
         print(f"Video already exists: {video_file_name}, skipping...")
     else:
         video = CompositeVideoClip(clips_all, size=(1280,720))
-        audio = AudioFileClip(f"audio_files/products/{rrow['recording_name']}.mp3")
+        audio = AudioFileClip(f"{nonvocab_audio_path}{rrow['recording_name']}/audio.mp3")
         video.audio = audio
         video.duration = audio.duration
         video.write_videofile(video_file_name, fps=24)

@@ -15,6 +15,7 @@ PHRASE_TYPES = ['phrase', 'part sent', 'phrase_save', 'speak_phrase', 'saying', 
 SENT_TYPES = ['sentence']
 PROPER_NOUN_TYPES = ['proper noun']
 IDIOM_TYPES = ['idiom']
+ALL_TYPES = WORD_TYPES + PHRASE_TYPES + SENT_TYPES + PROPER_NOUN_TYPES + IDIOM_TYPES
 categories_allowed_map = {'animal': ['animal'], 'food': ['food'], '': None}
 date_string = date.today().strftime("%m%d")
 default_settings = {
@@ -32,6 +33,8 @@ default_settings = {
     'min_per': 1,
     'min_date': '2025-01-01',
     'filename_suffix': '',
+    'contains_character': None,
+    'exclude_words': None,
 }
 
 # All previous recordings

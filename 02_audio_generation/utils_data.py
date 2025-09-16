@@ -13,7 +13,8 @@ def fill_default_settings(dict_recordings):
             if setting_key in ['sort_keys', 'sort_asc', 'cat1_values_allowed', 'types_allowed']:
                 df_all_recordings_tomake[setting_key] = df_all_recordings_tomake[setting_key].apply(lambda d: d if isinstance(d, list) else setting_default)
             else:
-                df_all_recordings_tomake[setting_key] = df_all_recordings_tomake[setting_key].fillna(setting_default)
+                if setting_default is not None:
+                    df_all_recordings_tomake[setting_key] = df_all_recordings_tomake[setting_key].fillna(setting_default)
 
     df_all_recordings_tomake['recording_id_code'] = df_all_recordings_tomake['recording_id'].map(recording_id_codes)
     df_all_recordings_tomake['categories_allowed'] = df_all_recordings_tomake['category_type'].map(categories_allowed_map)
@@ -79,8 +80,10 @@ def filter_df_to_vocab_of_interest(df, rrow):
             (df['per'] >= rrow['min_per']) &
             (df['date'] >= rrow['min_date']) &
             (df['type'].isin(rrow['types_allowed'])) &
+            (df['chinese'].str.contains(rrow['contains_character']) if rrow['contains_character'] is not None else True) &
             (df['category1'].isin(rrow['categories_allowed']) if rrow['categories_allowed'] is not None else True) &
-            (df['cat1'].isin(rrow['cat1_values_allowed']) if rrow['cat1_values_allowed'] is not None else True)
+            (df['cat1'].isin(rrow['cat1_values_allowed']) if rrow['cat1_values_allowed'] is not None else True) &
+            (~df['chinese'].isin(rrow['exclude_words']) if rrow['exclude_words'] is not None else True)
         ]
     df_filt = (_filter_by_recording_type(df_filt, rrow['recording_id'])
         .sort_values(rrow['sort_keys'], ascending=rrow['sort_asc'],)
