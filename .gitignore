@@ -6,3 +6,5 @@ pinyin.txt
 01_metro_stations/wikipedia_html/
 02_marr*
 03_prop*
+__pycache__/
+__temp__*
