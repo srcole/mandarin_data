@@ -1,6 +1,6 @@
 import pandas as pd
 from constants import (
-    recording_id_codes, categories_allowed_map, date_string, default_settings
+    categories_allowed_map, date_string, default_settings
 )
 
 
@@ -16,9 +16,8 @@ def fill_default_settings(dict_recordings):
                 if setting_default is not None:
                     df_all_recordings_tomake[setting_key] = df_all_recordings_tomake[setting_key].fillna(setting_default)
 
-    df_all_recordings_tomake['recording_id_code'] = df_all_recordings_tomake['recording_id'].map(recording_id_codes)
     df_all_recordings_tomake['categories_allowed'] = df_all_recordings_tomake['category_type'].map(categories_allowed_map)
-    df_all_recordings_tomake['recording_name'] = df_all_recordings_tomake.apply(lambda x: f"{date_string}_{x['recording_id']}_{x['recording_id_code']}_p{x['min_priority']}_{x['max_priority']}{x['filename_suffix']}", axis=1)
+    df_all_recordings_tomake['recording_name'] = df_all_recordings_tomake.apply(lambda x: f"{date_string}_{x['recording_id']}_{x['filename_suffix']}", axis=1)
     return df_all_recordings_tomake
 
 
@@ -51,9 +50,9 @@ def check_dups(df):
 
 def _filter_by_recording_type(df, recording_id):
     """Filter the DataFrame based on the recording type."""
-    if recording_id in ['004', '005', '010', '014', '016']:
+    if recording_id in ['004', '005', '010', '014', '016', 'chinese_only_word_twice']:
         return df.dropna(subset=['chinese', 'pinyin', 'english'])
-    elif recording_id in ['001', '009', '002', '012', '015']:
+    elif recording_id in ['001', '009', '002', '012', '015', 'cn_only_sent', 'ce_wordsent']:
         return df.dropna(subset=['sentence', 'sentence_english'])
     elif recording_id == '006':
         return df.dropna(subset=['word1', 'word1_english', 'word2', 'word2_english'])
@@ -87,7 +86,7 @@ def filter_df_to_vocab_of_interest(df, rrow):
         ]
     df_filt = (_filter_by_recording_type(df_filt, rrow['recording_id'])
         .sort_values(rrow['sort_keys'], ascending=rrow['sort_asc'],)
-        .reset_index(drop=True))
+        .reset_index(drop=True)).head(rrow['max_count'])
     return df_filt
 
 

@@ -46,11 +46,11 @@ def create_tts_files_for_one_vocab_word(row, rrow):
     create_tts_file(tts_type='zh_slow', content_str=row['chinese'], lang_name='zh-cn', last_timestamp=time.time(), chinese_char=row['chinese'], recording_id=rrow['recording_id'])
     create_tts_file(tts_type='english', content_str=row['english'], lang_name='en', last_timestamp=time.time(), chinese_char=row['chinese'], recording_id=rrow['recording_id'])
     
-    if rrow['recording_id'] in ['001', '007', '009', '013']:
+    if rrow['recording_id'] in ['001', '007', '009', '013', 'ce_wordsent']:
         create_tts_file(tts_type='zh', content_str=row['sentence'], lang_name='zh-cn', last_timestamp=time.time(), chinese_char=row['chinese'], recording_id=rrow['recording_id'])
         create_tts_file(tts_type='english', content_str=row['sentence_english'], lang_name='en', last_timestamp=time.time(), chinese_char=row['chinese'], recording_id=rrow['recording_id'])
     
-    if rrow['recording_id'] in ['002', '011', '012', '015']:
+    if rrow['recording_id'] in ['002', '011', '012', '015', 'cn_only_sent', 'ec_csent']:
         create_tts_file(tts_type='zh', content_str=row['sentence'], lang_name='zh-cn', last_timestamp=time.time(), chinese_char=row['chinese'], recording_id=rrow['recording_id'])
     
     if rrow['recording_id'] in ['006', '013']:
@@ -91,6 +91,7 @@ def load_audio(recording_id, row):
     pause_100ms = AudioSegment.silent(duration=100)
     pause_300ms = AudioSegment.silent(duration=300)
     pause_500ms = AudioSegment.silent(duration=500)
+    pause_800ms = AudioSegment.silent(duration=800)
     pause_1000ms = AudioSegment.silent(duration=1000)
 
     dict_audio_durations = defaultdict(list)
@@ -98,7 +99,7 @@ def load_audio(recording_id, row):
     chinese_slow_audio = load_one_audio_from_path(f"audio_files/zh_slow/{row['chinese']}.mp3")
     english_audio = load_one_audio_from_path(f"audio_files/english/{row['english']}.mp3")
     
-    if recording_id in ['001', '007', '009']:
+    if recording_id in ['001', '007', '009', 'ce_wordsent']:
         sent_audio = load_one_audio_from_path(f"audio_files/zh/{row['sentence']}.mp3")
         sent_english_audio = load_one_audio_from_path(f"audio_files/english/{row['sentence_english']}.mp3")
         combined = chinese_audio + pause_500ms + chinese_slow_audio + pause_500ms + english_audio + pause_500ms + sent_audio + pause_500ms + sent_english_audio + pause_500ms + sent_audio + pause_1000ms
@@ -260,7 +261,7 @@ def load_audio(recording_id, row):
         dict_audio_durations['sum_theory'].append(dict_audio_durations['rel_start_sent_english'][-1] + dict_audio_durations['d_sent_english'][-1] + 1)
         dict_audio_durations['combined'].append(combined.duration_seconds)
 
-    elif recording_id == '012':
+    elif recording_id in ['012', 'ec_csent']:
         sent_audio = AudioSegment.from_mp3(f"audio_files/zh/{row['sentence']}.mp3")
         combined = english_audio + pause_500ms + chinese_audio + pause_500ms + sent_audio + pause_1000ms
 
@@ -281,7 +282,7 @@ def load_audio(recording_id, row):
         dict_audio_durations['sum_theory'].append(dict_audio_durations['rel_start_sent'][-1] + dict_audio_durations['d_sent'][-1] + 1)
         dict_audio_durations['combined'].append(combined.duration_seconds)
 
-    elif recording_id == '015':
+    elif recording_id in ['015', 'cn_only_sent']:
         sent_audio = AudioSegment.from_mp3(f"audio_files/zh/{row['sentence']}.mp3")
         combined = chinese_audio + pause_300ms + sent_audio + pause_1000ms
 
@@ -298,6 +299,20 @@ def load_audio(recording_id, row):
         dict_audio_durations['rel_start_chinese'].append(0)
         dict_audio_durations['rel_start_sent'].append(dict_audio_durations['rel_start_chinese'][-1] + dict_audio_durations['d_chinese'][-1] + 0.3)
         dict_audio_durations['sum_theory'].append(dict_audio_durations['rel_start_sent'][-1] + dict_audio_durations['d_sent'][-1] + 1)
+        dict_audio_durations['combined'].append(combined.duration_seconds)
+
+    elif recording_id == 'chinese_only_word_twice':
+        sent_audio = AudioSegment.from_mp3(f"audio_files/zh/{row['sentence']}.mp3")
+        combined = chinese_audio + pause_300ms + chinese_slow_audio + pause_1000ms
+
+        dict_audio_durations['chinese'].append(row['chinese'])
+        dict_audio_durations['pinyin'].append(row['pinyin'])
+        dict_audio_durations['english'].append(row['english'])
+
+        dict_audio_durations['d_chinese'].append(chinese_audio.duration_seconds + chinese_slow_audio.duration_seconds + 0.3)
+
+        dict_audio_durations['rel_start_chinese'].append(0)
+        dict_audio_durations['sum_theory'].append(dict_audio_durations['d_chinese'][-1] + 1)
         dict_audio_durations['combined'].append(combined.duration_seconds)
 
     else:
@@ -324,16 +339,16 @@ def compute_start_times_for_clips(df_durations, recording_settings):
         df_durations['start_chinese'] = df_durations['start'] + df_durations['rel_start_chinese']
         df_durations['start_component_words'] = df_durations['start'] + df_durations['rel_start_component_words']
         df_durations['start_english'] = df_durations['start'] + df_durations['rel_start_english']
-    elif recording_settings['recording_id'] == '001':
+    elif recording_settings['recording_id'] in ['001', 'ce_wordsent']:
         df_durations['start_chinese'] = df_durations['start'] + df_durations['rel_start_chinese']
         df_durations['start_english'] = df_durations['start'] + df_durations['rel_start_english']
         df_durations['start_sent'] = df_durations['start'] + df_durations['rel_start_sent']
         df_durations['start_sent_english'] = df_durations['start'] + df_durations['rel_start_sent_english']
-    elif recording_settings['recording_id'] == '012':
+    elif recording_settings['recording_id'] in ['012', 'ec_csent']:
         df_durations['start_english'] = df_durations['start'] + df_durations['rel_start_english']
         df_durations['start_chinese'] = df_durations['start'] + df_durations['rel_start_chinese']
         df_durations['start_sent'] = df_durations['start'] + df_durations['rel_start_sent']
-    elif recording_settings['recording_id'] == '015':
+    elif recording_settings['recording_id'] in ['015', 'cn_only_sent']:
         df_durations['start_sent'] = df_durations['start'] + df_durations['rel_start_sent']
     else:
         print('VIDEO NOT MADE FOR RECORDING ID', recording_settings['recording_id'])
