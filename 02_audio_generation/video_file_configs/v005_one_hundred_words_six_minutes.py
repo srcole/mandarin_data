@@ -4,9 +4,17 @@ from constants import WORD_TYPES, PHRASE_TYPES, SENT_TYPES, PROPER_NOUN_TYPES, I
 # TODO - change the script so that it is more reproducible; won't change (e.g. functions that can be versioned for different intros)
 
 # Basic video info
+video_name = '100 words in 6 minutes - Chinese vocabulary'
+video_description = '''
+This video was made for quickly reviewing Chinese vocabulary, practicing both listening comprehension and character recognition.
+A variety of 100 common words are presented, each spoken twice in succession.
+Words may come from HSK1, HSK2, HSK3, HSK4, HSK5, or above.
+Because these videos are programmatically generated, the format is customizable to quickly produce alternate formats with different vocabulary categories.
+If you have any corrections, suggestions, feedback, or questions, please leave a comment.
+'''
 video_number = '5'
 subtitle_1 = {'chinese': '100 常用词', 'pinyin': '100 chángyòng cí', 'english': '100 common words'}
-subtitle_2 = {'chinese': '5 分钟', 'pinyin': '5 fēnzhōng', 'english': '5 minutes'}
+subtitle_2 = {'chinese': '6 分钟', 'pinyin': '6 fēnzhōng', 'english': '6 minutes'}
 
 # Video configs
 hanzi_font_path = '/System/Library/Fonts/STHeiti Medium.ttc'
@@ -48,23 +56,15 @@ nonvocab_slides = {
         'english': f"Welcome to my Mandarin Chinese Database Video {video_number}: {subtitle_1['english']}: {subtitle_2['english']}",
         'clip_index': 0,
         'change_index': -2,
-        'pause_ms': 500,
-    },
-    'word_list': {
-        'chinese_unfill': '这些是将在接下来的{audio_duration_minutes:.0f}分钟内复习的{n_vocab}个单词',
-        'pinyin_unfill': 'Zhèxiē shì jiàng zài jiē xiàlái de {audio_duration_minutes:.0f} fēnzhōng nèi fùxí de {n_vocab} gè dāncí',
-        'english_unfill': 'These are the {n_vocab} words that will be reviewed over the next {audio_duration_minutes:.0f} minutes',
-        'clip_index': 1,
-        'change_index': -1,
-        'pause_ms': 500,
+        'pause_ms': 300,
     },
     'end': {
-        'chinese': '如果你有任何问题、建议或反馈，请留言。请点赞并订阅。',
-        'pinyin': 'Rúguǒ nǐ yǒu rènhé wèntí, jiànyì huò fǎnkuì, qǐng liúyán. Qǐng diǎn zàn bìng dìngyuè.',
-        'english': 'If you have any questions, suggestions, or feedback, please leave a comment. Please like and subscribe.',
+        'chinese': '如果你有任何问题、建议或反馈，请留言。',
+        'pinyin': 'Rúguǒ nǐ yǒu rènhé wèntí, jiànyì huò fǎnkuì, qǐng liúyán.',
+        'english': 'If you have any questions, suggestions, or feedback, please leave a comment.',
         'clip_index': -1,
         'change_index': None,
-        'pause_ms': 500,
+        'pause_ms': 300,
     },
 }
 
@@ -75,7 +75,8 @@ dict_recordings = [
     'min_adu': 3, 'min_per': 3,
     'min_priority': 1, 'max_priority': 1,
     'types_allowed': WORD_TYPES + PROPER_NOUN_TYPES,
-    'exclude_words': ['最大的弱点', '大二', '大三'],
+    'exclude_words': ['最大的弱点', '大二', '大三', '大一', '台湾', '孔子', '普通话', '人民币', '随地吐痰', '被黑', '高考',
+                      '大陆人', '长城', '长江', '牛马', '程序员', '亿', '多少', '升', '平常', '用户', '账户', '不在乎', '持怀疑态度'],
     'max_count': 100,
     },
 ]

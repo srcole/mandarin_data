@@ -4,39 +4,39 @@ from constants import WORD_TYPES, PHRASE_TYPES, SENT_TYPES, PROPER_NOUN_TYPES, I
 dict_recordings = [
     ### English first, with sent: P1, P2, P3, Known
     {
-    'recording_id': '012', 'filename_suffix': 'efirst_p1_k345',
+    'recording_id': 'ec_csent', 'filename_suffix': 'efirst_p1_k345',
     'min_priority': 1, 'max_priority': 1,
     'min_known_english_prompt': 3, 'max_known_english_prompt': 5,
     },
     {
-    'recording_id': '012', 'filename_suffix': 'efirst_p2_k345',
+    'recording_id': 'ec_csent', 'filename_suffix': 'efirst_p2_k345',
     'min_priority': 2, 'max_priority': 2,
     'min_known_english_prompt': 3, 'max_known_english_prompt': 5,
     },
     {
-    'recording_id': '012', 'filename_suffix': 'efirst_p3_k345',
+    'recording_id': 'ec_csent', 'filename_suffix': 'efirst_p3_k345',
     'min_priority': 3, 'max_priority': 3,
     'min_known_english_prompt': 3, 'max_known_english_prompt': 5,
     },
     {
-    'recording_id': '012', 'filename_suffix': '_p123_k2',
+    'recording_id': 'ec_csent', 'filename_suffix': '_p123_k2',
     'min_priority': 1, 'max_priority': 3,
     'min_known_english_prompt': 2, 'max_known_english_prompt': 2,
     },
 
     # Full: P1, P2, P3
     {
-    'recording_id': '001', 'filename_suffix': '_p1_k345',
+    'recording_id': 'ce_wordsent', 'filename_suffix': '_p1_k345',
     'min_priority': 1, 'max_priority': 1,
     'min_known_pinyin_prompt': 3, 'max_known_pinyin_prompt': 5,
     },
     {
-    'recording_id': '001', 'filename_suffix': '_p2_k345',
+    'recording_id': 'ce_wordsent', 'filename_suffix': '_p2_k345',
     'min_priority': 2, 'max_priority': 2,
     'min_known_pinyin_prompt': 3, 'max_known_pinyin_prompt': 5,
     },
     {
-    'recording_id': '001', 'filename_suffix': '_p3_k345',
+    'recording_id': 'ce_wordsent', 'filename_suffix': '_p3_k345',
     'min_priority': 3, 'max_priority': 3,
     'min_known_pinyin_prompt': 3, 'max_known_pinyin_prompt': 5,
     },

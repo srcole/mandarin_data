@@ -91,7 +91,7 @@ def load_audio(recording_id, row):
     pause_100ms = AudioSegment.silent(duration=100)
     pause_300ms = AudioSegment.silent(duration=300)
     pause_500ms = AudioSegment.silent(duration=500)
-    pause_800ms = AudioSegment.silent(duration=800)
+    pause_750ms = AudioSegment.silent(duration=750)
     pause_1000ms = AudioSegment.silent(duration=1000)
 
     dict_audio_durations = defaultdict(list)
@@ -303,7 +303,7 @@ def load_audio(recording_id, row):
 
     elif recording_id == 'chinese_only_word_twice':
         sent_audio = AudioSegment.from_mp3(f"audio_files/zh/{row['sentence']}.mp3")
-        combined = chinese_audio + pause_300ms + chinese_slow_audio + pause_1000ms
+        combined = chinese_audio + pause_300ms + chinese_slow_audio + pause_750ms
 
         dict_audio_durations['chinese'].append(row['chinese'])
         dict_audio_durations['pinyin'].append(row['pinyin'])
