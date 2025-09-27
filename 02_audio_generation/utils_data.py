@@ -1,7 +1,6 @@
 import pandas as pd
-from constants import (
-    categories_allowed_map, date_string, default_settings
-)
+import os
+from constants import date_string, default_settings
 
 
 def fill_default_settings(dict_recordings):
@@ -10,13 +9,12 @@ def fill_default_settings(dict_recordings):
         if setting_key not in df_all_recordings_tomake.columns:
             df_all_recordings_tomake[setting_key] = [setting_default]*len(df_all_recordings_tomake)
         else:
-            if setting_key in ['sort_keys', 'sort_asc', 'cat1_values_allowed', 'types_allowed']:
+            if setting_key in ['sort_keys', 'sort_asc', 'cat1_values_allowed', 'categories_allowed', 'categories2_allowed', 'types_allowed']:
                 df_all_recordings_tomake[setting_key] = df_all_recordings_tomake[setting_key].apply(lambda d: d if isinstance(d, list) else setting_default)
             else:
                 if setting_default is not None:
                     df_all_recordings_tomake[setting_key] = df_all_recordings_tomake[setting_key].fillna(setting_default)
 
-    df_all_recordings_tomake['categories_allowed'] = df_all_recordings_tomake['category_type'].map(categories_allowed_map)
     df_all_recordings_tomake['recording_name'] = df_all_recordings_tomake.apply(lambda x: f"{date_string}_{x['recording_id']}_{x['filename_suffix']}", axis=1)
     return df_all_recordings_tomake
 
@@ -52,7 +50,7 @@ def _filter_by_recording_type(df, recording_id):
     """Filter the DataFrame based on the recording type."""
     if recording_id in ['004', '005', '010', '014', '016', 'chinese_only_word_twice']:
         return df.dropna(subset=['chinese', 'pinyin', 'english'])
-    elif recording_id in ['001', '009', '002', '012', '015', 'cn_only_sent', 'ce_wordsent', 'ec_csent']:
+    elif recording_id in ['001', '009', '002', '012', '015', 'cn_only_sent', 'ce_wordsent', 'ec_csent', 'ceword_csent']:
         return df.dropna(subset=['sentence', 'sentence_english'])
     elif recording_id == '006':
         return df.dropna(subset=['word1', 'word1_english', 'word2', 'word2_english'])
@@ -81,6 +79,7 @@ def filter_df_to_vocab_of_interest(df, rrow):
             (df['type'].isin(rrow['types_allowed'])) &
             (df['chinese'].str.contains(rrow['contains_character']) if rrow['contains_character'] is not None else True) &
             (df['category1'].isin(rrow['categories_allowed']) if rrow['categories_allowed'] is not None else True) &
+            (df['category2'].isin(rrow['categories2_allowed']) if rrow['categories2_allowed'] is not None else True) &
             (df['cat1'].isin(rrow['cat1_values_allowed']) if rrow['cat1_values_allowed'] is not None else True) &
             (~df['chinese'].isin(rrow['exclude_words']) if rrow['exclude_words'] is not None else True)
         ]
@@ -107,3 +106,16 @@ def pinyin_to_tones(pinyin):
                 break
         tones.append(tone)
     return tones
+
+
+def delete_previous_attempt_files(df_all_recordings_tomake, nonvocab_audio_path, to_delete=True):
+    if to_delete:
+        for _, rrow in df_all_recordings_tomake.iterrows():
+            if os.path.exists(f"{nonvocab_audio_path}/{rrow['recording_name']}/audio_durations_all.csv"):
+                os.remove(f"{nonvocab_audio_path}/{rrow['recording_name']}/audio_durations_all.csv")
+            if os.path.exists(f"{nonvocab_audio_path}/{rrow['recording_name']}/audio_durations_vocab_only.csv"):
+                os.remove(f"{nonvocab_audio_path}/{rrow['recording_name']}/audio_durations_vocab_only.csv")
+            if os.path.exists(f"{nonvocab_audio_path}/{rrow['recording_name']}/video.mp4"):
+                os.remove(f"{nonvocab_audio_path}/{rrow['recording_name']}/video.mp4")
+            if os.path.exists(f"{nonvocab_audio_path}/{rrow['recording_name']}/audio.mp3"):
+                os.remove(f"{nonvocab_audio_path}/{rrow['recording_name']}/audio.mp3")

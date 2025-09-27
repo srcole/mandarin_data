@@ -6,7 +6,6 @@ SENT_TYPES = ['sentence']
 PROPER_NOUN_TYPES = ['proper noun']
 IDIOM_TYPES = ['idiom']
 ALL_TYPES = WORD_TYPES + PHRASE_TYPES + SENT_TYPES + PROPER_NOUN_TYPES + IDIOM_TYPES
-categories_allowed_map = {'animal': ['animal'], 'food': ['food'], '': None}
 date_string = date.today().strftime("%m%d")
 default_settings = {
     'min_priority': 1, 'max_priority': 4,
@@ -14,9 +13,10 @@ default_settings = {
     'min_known_pinyin_prompt': 1, 'max_known_pinyin_prompt': 6,
     'sort_keys': ['category1', 'category2', 'pinyin'],
     'sort_asc': [True, True, True],
-    'types_allowed': WORD_TYPES,
+    'types_allowed': ALL_TYPES,
     'min_combo_quality': 6,
-    'category_type': '',
+    'categories_allowed': None,
+    'categories2_allowed': None,
     'cat1_values_allowed': None,
     'types_allowed_str': '',
     'min_adu': 1,
